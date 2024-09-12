@@ -1,0 +1,13 @@
+{
+    "time": 10,
+    "time_unit": "sec",
+    "ui_system": "Kde",
+    "ignore_images": false,
+    "random_display": false,
+    "mature_content": true,
+
+    "ignore_list": {},
+
+    "mature_content_list": {}
+
+}
