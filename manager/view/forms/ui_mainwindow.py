@@ -19,7 +19,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QGridLayout,
     QGroupBox, QHBoxLayout, QLabel, QMainWindow,
     QMenu, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QTextEdit, QToolButton, QWidget)
+    QStatusBar, QTextEdit, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -155,39 +155,54 @@ class Ui_MainWindow(object):
         self.groupBox_2.setGeometry(QRect(30, 190, 331, 261))
         self.gridLayoutWidget = QWidget(self.groupBox_2)
         self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
-        self.gridLayoutWidget.setGeometry(QRect(10, 50, 291, 171))
+        self.gridLayoutWidget.setGeometry(QRect(10, 30, 321, 221))
         self.gridLayout = QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.mature_toolButton = QToolButton(self.gridLayoutWidget)
-        self.mature_toolButton.setObjectName(u"mature_toolButton")
+        self.label_3 = QLabel(self.gridLayoutWidget)
+        self.label_3.setObjectName(u"label_3")
 
-        self.gridLayout.addWidget(self.mature_toolButton, 2, 1, 1, 1)
+        self.gridLayout.addWidget(self.label_3, 2, 0, 1, 1)
 
-        self.newImages_toolButton = QToolButton(self.gridLayoutWidget)
-        self.newImages_toolButton.setObjectName(u"newImages_toolButton")
+        self.newImages_folder = QPushButton(self.gridLayoutWidget)
+        self.newImages_folder.setObjectName(u"newImages_folder")
 
-        self.gridLayout.addWidget(self.newImages_toolButton, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.newImages_folder, 0, 1, 1, 1)
 
-        self.ignore_toolButton = QToolButton(self.gridLayoutWidget)
-        self.ignore_toolButton.setObjectName(u"ignore_toolButton")
+        self.label = QLabel(self.gridLayoutWidget)
+        self.label.setObjectName(u"label")
 
-        self.gridLayout.addWidget(self.ignore_toolButton, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
-        self.new_images_label = QLabel(self.gridLayoutWidget)
-        self.new_images_label.setObjectName(u"new_images_label")
+        self.label_2 = QLabel(self.gridLayoutWidget)
+        self.label_2.setObjectName(u"label_2")
 
-        self.gridLayout.addWidget(self.new_images_label, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
 
-        self.ignore_label = QLabel(self.gridLayoutWidget)
-        self.ignore_label.setObjectName(u"ignore_label")
+        self.newImages_files = QPushButton(self.gridLayoutWidget)
+        self.newImages_files.setObjectName(u"newImages_files")
 
-        self.gridLayout.addWidget(self.ignore_label, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.newImages_files, 0, 2, 1, 1)
 
-        self.mature_label = QLabel(self.gridLayoutWidget)
-        self.mature_label.setObjectName(u"mature_label")
+        self.ignoreImages_folder = QPushButton(self.gridLayoutWidget)
+        self.ignoreImages_folder.setObjectName(u"ignoreImages_folder")
 
-        self.gridLayout.addWidget(self.mature_label, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.ignoreImages_folder, 1, 1, 1, 1)
+
+        self.ignoreImages_files = QPushButton(self.gridLayoutWidget)
+        self.ignoreImages_files.setObjectName(u"ignoreImages_files")
+
+        self.gridLayout.addWidget(self.ignoreImages_files, 1, 2, 1, 1)
+
+        self.nsfw_folder = QPushButton(self.gridLayoutWidget)
+        self.nsfw_folder.setObjectName(u"nsfw_folder")
+
+        self.gridLayout.addWidget(self.nsfw_folder, 2, 1, 1, 1)
+
+        self.nsfw_files = QPushButton(self.gridLayoutWidget)
+        self.nsfw_files.setObjectName(u"nsfw_files")
+
+        self.gridLayout.addWidget(self.nsfw_files, 2, 2, 1, 1)
 
         self.save_button = QPushButton(self.centralwidget)
         self.save_button.setObjectName(u"save_button")
@@ -233,15 +248,18 @@ class Ui_MainWindow(object):
         self.random_checkBox.setText(QCoreApplication.translate("MainWindow", u"Randomize display images", None))
         self.nsfw_checkBox.setText(QCoreApplication.translate("MainWindow", u"Block not safe to work images", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Wallpapers Manipulation", None))
-        self.mature_toolButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
-        self.newImages_toolButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
-        self.ignore_toolButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
-        self.new_images_label.setText(QCoreApplication.translate("MainWindow", u"Add new Images", None))
-        self.ignore_label.setText(QCoreApplication.translate("MainWindow", u"Add Image to ignore list", None))
-        self.mature_label.setText(QCoreApplication.translate("MainWindow", u"Add image to mature content list", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.newImages_folder.setText(QCoreApplication.translate("MainWindow", u"Folder", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Add New Images", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Ignore List", None))
+        self.newImages_files.setText(QCoreApplication.translate("MainWindow", u"File", None))
+        self.ignoreImages_folder.setText(QCoreApplication.translate("MainWindow", u"Folder", None))
+        self.ignoreImages_files.setText(QCoreApplication.translate("MainWindow", u"File", None))
+        self.nsfw_folder.setText(QCoreApplication.translate("MainWindow", u"Folder", None))
+        self.nsfw_files.setText(QCoreApplication.translate("MainWindow", u"File", None))
         self.save_button.setText(QCoreApplication.translate("MainWindow", u"Save Config", None))
         self.start_button.setText(QCoreApplication.translate("MainWindow", u"Start", None))
-        self.close_button.setText(QCoreApplication.translate("MainWindow", u"Close", None))
+        self.close_button.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
         self.menuWallMan_Program.setTitle(QCoreApplication.translate("MainWindow", u"WallMan Program", None))
     # retranslateUi
 
