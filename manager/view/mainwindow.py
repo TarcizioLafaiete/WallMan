@@ -5,7 +5,7 @@ import json
 
 class mainWindow(QMainWindow):
 
-    startWorker = Signal()
+    startWorker = Signal(dict)
     closeWorker = Signal()
     saveConfig = Signal()
 
@@ -25,7 +25,15 @@ class mainWindow(QMainWindow):
 
     @Slot()
     def start_button_clicked(self):
-        self.startWorker.emit()
+        configDict = {
+            'time': int(self.ui.time_edit.toPlainText()),
+            'time_unit': self.ui.time_unit_box.currentText(),
+            'ui_system': self.ui.ui_system_box.currentText(),
+            'ignore_images': self.ui.ignore_checkBox.isChecked(),
+            'random_display': self.ui.random_checkBox.isChecked(),
+            'mature_content': self.ui.nsfw_checkBox.isChecked()
+        }
+        self.startWorker.emit(configDict)
 
     @Slot()
     def close_button_clicked(self):
@@ -46,3 +54,6 @@ class mainWindow(QMainWindow):
         self.ui.ignore_checkBox.setChecked(settings['ignore_images'])
         self.ui.random_checkBox.setChecked(settings['random_display'])
         self.ui.nsfw_checkBox.setChecked(settings['mature_content'])
+
+        with open('../currentSettings.json','w') as file:
+            json.dump(settings,file,indent=4)
