@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QMainWindow
 from PySide6.QtCore import QObject,Signal,Slot
 from view.mainwindow import mainWindow
 from business.configManager import configManager
+from business.unixClient import unixClient
 
 class Controller(QObject):
 
@@ -10,6 +11,7 @@ class Controller(QObject):
         self.connectSignalsAndSlots()
 
         self.configManager = configManager()
+        self.initial = True
 
     def connectSignalsAndSlots(self):
         self.mainInterface.startWorker.connect(self.sendConfigs_to_Worker)
@@ -19,8 +21,12 @@ class Controller(QObject):
     @Slot(dict)
     def sendConfigs_to_Worker(self,configs:dict):
         print("sending configurations to worker")
-        print(configs)
         self.configManager.fillCurrentFile(configs)
+        command = {"flag": 1,"initial": self.initial,"image_change":False}
+        client = unixClient('/tmp/socket_file')
+        client.sendMessage(command)
+        
+        self.initial = False
     
     @Slot()
     def close_Worker(self):
