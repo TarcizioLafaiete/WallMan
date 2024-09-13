@@ -5,6 +5,10 @@ import os
 class unixServer:
 
     def __init__(self,unixFile:str) -> None:
+
+        if os.path.exists(unixFile):
+            os.remove(unixFile)
+
         self.server = socket.socket(socket.AF_UNIX,socket.SOCK_STREAM)
         self.server.bind(unixFile)
         self.server.listen(1)
