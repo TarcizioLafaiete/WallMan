@@ -1,0 +1,9 @@
+# Ignorar pastas __pycache__
+__pycache__/
+*.py[cod]
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar configurações do IDE/Editor
+.vscode/
