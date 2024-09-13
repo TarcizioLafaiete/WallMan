@@ -23,14 +23,15 @@ class Controller(QObject):
         print("sending configurations to worker")
         self.configManager.fillCurrentFile(configs)
         command = {"flag": 1,"initial": self.initial,"image_change":False}
-        client = unixClient('/tmp/socket_file')
-        client.sendMessage(command)
+        unixClient('/tmp/socket_file',command)
         
         self.initial = False
     
     @Slot()
     def close_Worker(self):
         print("Close worker")
+        command = {"flag": 0}
+        unixClient('/tmp/socket_file',command)
 
     @Slot()
     def saveConfigs(self):
