@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QMainWindow
+from PySide6.QtGui import QIcon
 from .forms.ui_mainwindow import Ui_MainWindow
 from PySide6.QtCore import Signal,Slot
 import json
@@ -17,6 +18,15 @@ class mainWindow(QMainWindow):
         self.connectSignalsAndSlots()
         self.ui.start_button.setStyleSheet("background-color: #00AA00")
         self.ui.close_button.setStyleSheet("background-color: #AA0000")
+
+        self.__setIcons(self.ui.newImages_folder,'view/forms/resources/adicionar-pasta.png')
+        self.__setIcons(self.ui.ignoreImages_folder,'view/forms/resources/adicionar-pasta.png')
+        self.__setIcons(self.ui.nsfw_folder,'view/forms/resources/adicionar-pasta.png')
+
+        self.__setIcons(self.ui.newImages_files,'view/forms/resources/adicionar-imagem.png')
+        self.__setIcons(self.ui.ignoreImages_files,'view/forms/resources/adicionar-imagem.png')
+        self.__setIcons(self.ui.nsfw_files,'view/forms/resources/adicionar-imagem.png')
+
 
     def connectSignalsAndSlots(self):
         self.ui.start_button.clicked.connect(self.start_button_clicked)
@@ -42,6 +52,10 @@ class mainWindow(QMainWindow):
     @Slot()
     def saveConfig_button_clicked(self):
         self.saveConfig.emit()
+    
+    # @Slot()
+    # def get_folder(self):
+
 
     def __readCurrentSettings(self):
         with open('../settings.json','r') as file:
@@ -57,3 +71,8 @@ class mainWindow(QMainWindow):
 
         with open('../currentSettings.json','w') as file:
             json.dump(settings,file,indent=4)
+
+    def __setIcons(self,object,resource):
+        icon = QIcon(resource)
+        object.setIcon(icon)
+        object.setText('')
