@@ -26,15 +26,11 @@ def socket_routine():
 def generate_imagesList(settings:dict) -> list[str]:
     imagesList = settings['images_list']
     ignoreList = []
-    mature_content = []
-
+    
     if(settings['ignore_images']):
         ignoreList = settings['ignore_list']
-    if(settings['mature_content']):
-        mature_content = settings['mature_content_list']
 
     imagesList = list(set(imagesList) - set(ignoreList))
-    imagesList = list(set(imagesList) - set(mature_content))
     return imagesList
 
 def getOtherConfigs(settings:dict) -> dict:
