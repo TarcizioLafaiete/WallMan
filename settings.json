@@ -1,13 +1,10 @@
 {
+    "version": 1.0,
     "time": 10,
     "time_unit": "sec",
-    "ui_system": "Kde",
+    "ui_system": "Gnome",
     "ignore_images": false,
     "random_display": false,
-    "mature_content": true,
-
-    "ignore_list": {},
-
-    "mature_content_list": {}
-
+    "images_list": [],
+    "ignore_list": []
 }
