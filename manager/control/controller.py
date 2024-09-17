@@ -1,8 +1,10 @@
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtCore import QObject,Signal,Slot
+
 from view.mainwindow import mainWindow
 from business.configManager import configManager
 from business.unixClient import unixClient
+from business.utils import pathOperationType
 
 class Controller(QObject):
 
@@ -17,6 +19,8 @@ class Controller(QObject):
         self.mainInterface.startWorker.connect(self.sendConfigs_to_Worker)
         self.mainInterface.closeWorker.connect(self.close_Worker)
         self.mainInterface.saveConfig.connect(self.saveConfigs)
+
+        self.mainInterface.pathOperation.connect(self.receive_folder)
 
     @Slot(dict)
     def sendConfigs_to_Worker(self,configs:dict):
@@ -37,3 +41,7 @@ class Controller(QObject):
     def saveConfigs(self):
         print("Save configurations in settings.json")
         self.configManager.saveSettingsFile()
+
+    @Slot(pathOperationType,str)
+    def receive_folder(self,operation:pathOperationType, folder: str):
+        print(f"{operation.value} : {folder}")
