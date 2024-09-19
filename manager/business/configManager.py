@@ -1,4 +1,5 @@
 import sys
+import os
 import json
 
 class configManager:
@@ -6,6 +7,24 @@ class configManager:
     def __init__(self):
         self.permanentFile = '../settings.json'
         self.currentFile = '../currentSettings.json'
+
+    def addfolderInImageList(self,folder:str):
+        files = []
+        for root,dirs,file_walks in os.walk(folder):
+            files += [os.path.join(root,file) for file in file_walks if file.endswith('.jpg') | file.endswith('.png')]
+
+        self.addImagesInImageList(files)
+
+    def addImagesInImageList(self,images:list):
+        settings  = {}
+        with open(self.currentFile,'r') as file:
+            settings = json.load(file)
+
+        for image in images:
+            settings['images_list'].append(image)
+
+        with open(self.currentFile,'w') as file:
+            json.dump(settings,file,indent=4)
 
     def fillCurrentFile(self,newConfigs:dict):
         currentConfigs = {}
