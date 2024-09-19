@@ -14,6 +14,7 @@ class mainWindow(QMainWindow):
     closeWorker = Signal()
     saveConfig = Signal()
     pathOperation = Signal(pathOperationType,str)
+    filesOperation = Signal(pathOperationType,list)
     
 
     def __init__(self):
@@ -42,6 +43,10 @@ class mainWindow(QMainWindow):
         self.ui.add_folder.clicked.connect(self.get_add_folder)
         self.ui.ignore_folder.clicked.connect(self.get_ignore_folder)
         self.ui.remove_folder.clicked.connect(self.get_remove_folder)
+
+        self.ui.add_file.clicked.connect(self.get_add_files)
+        self.ui.ignore_file.clicked.connect(self.get_ignore_files)
+        self.ui.remove_file.clicked.connect(self.get_remove_files)
 
     @Slot()
     def start_button_clicked(self):
@@ -74,9 +79,25 @@ class mainWindow(QMainWindow):
     def get_remove_folder(self):
         self.pathOperation.emit(pathOperationType.REMOVE,self.__get_folder())
 
+    @Slot()
+    def get_add_files(self):
+        self.filesOperation.emit(pathOperationType.ADD,self.__get_files())
+
+    @Slot()
+    def get_ignore_files(self):
+        self.filesOperation.emit(pathOperationType.IGNORE,self.__get_files())
+
+    @Slot()
+    def get_remove_files(self):
+        self.filesOperation.emit(pathOperationType.REMOVE,self.__get_files())
+
     def __get_folder(self):
         folder_name = QFileDialog.getExistingDirectory()
         return folder_name
+    
+    def __get_files(self):
+        files_names, _ = QFileDialog.getOpenFileNames()
+        return files_names
         
 
     def __readCurrentSettings(self):
