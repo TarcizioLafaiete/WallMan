@@ -58,7 +58,6 @@ def plotWallpaper(image:str,configs:dict):
         command = f"gsettings set org.gnome.desktop.background picture-uri file://{image}"
     elif configs['ui'] == "Kde":
         command = f"utils/kde_change_wallpaper_command.sh {image}"
-    print(command)
     os.system(command)
     time.sleep(configs['time'] * convertTimeUnit(configs['time_unit']))
 
@@ -68,8 +67,6 @@ def wallpaper_routine():
 
     with open('../settings.json','r') as file:
         settings = json.load(file)
-
-    print(f"image list: `{settings['images_list']}")
 
     configs = getOtherConfigs(settings)
     images = generate_imagesList(settings)
