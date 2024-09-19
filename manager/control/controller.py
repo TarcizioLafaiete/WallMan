@@ -21,6 +21,7 @@ class Controller(QObject):
         self.mainInterface.saveConfig.connect(self.saveConfigs)
 
         self.mainInterface.pathOperation.connect(self.receive_folder)
+        self.mainInterface.filesOperation.connect(self.receive_files)
 
     @Slot(dict)
     def sendConfigs_to_Worker(self,configs:dict):
@@ -45,3 +46,17 @@ class Controller(QObject):
     @Slot(pathOperationType,str)
     def receive_folder(self,operation:pathOperationType, folder: str):
         print(f"{operation.value} : {folder}")
+        self.configManager.addfolderInImageList(folder)
+
+        self.initial = False
+        command = {"flag":1, "initial": self.initial, "image_change": True}
+        unixClient("/tmp/socket_file",command)
+
+    @Slot(pathOperationType,list)
+    def receive_files(self,operation:pathOperationType,files: list):
+        print(f"{operation.value} : {files}")
+        self.configManager.addImagesInImageList(files)
+
+        self.initial = False
+        command = {"flag":1, "initial": self.initial, "image_change": True}
+        unixClient("/tmp/socket_file",command)
