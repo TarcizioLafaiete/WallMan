@@ -1,3 +1,5 @@
+#!/bin/python3
+
 import time
 import os
 import threading
@@ -7,7 +9,10 @@ import numpy as np
 
 from utils.unixServer import unixServer
 
-unixFile = '/tmp/socket_file'
+
+unixFile = os.getenv("UNIX_SOCKET_FILE")
+currentSettingsFile = os.getenv("CURRENT_SETTINGS_JSON")
+settingsFile = os.getenv("SETTINGS_JSON")
 commandDict = {'flag':0}
 
 mutex = threading.Lock()
@@ -65,7 +70,7 @@ def plotWallpaper(image:str,configs:dict):
 def wallpaper_routine():
     settings = {}
 
-    with open('../settings.json','r') as file:
+    with open(settingsFile,'r') as file:
         settings = json.load(file)
 
     configs = getOtherConfigs(settings)
@@ -83,11 +88,12 @@ def wallpaper_routine():
         if flag == 1:
             if not commandFlags['initial']:
 
-                with open('../currentSettings.json','r') as file:
+                with open(currentSettingsFile,'r') as file:
                     settings = json.load(file)
 
                 if commandFlags['image_change']:
                     images = generate_imagesList(settings)
+                    print(images)
                     listSize = len(images)
                 else:
                     configs = getOtherConfigs(settings)

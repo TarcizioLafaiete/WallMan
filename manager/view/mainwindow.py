@@ -3,7 +3,7 @@ from PySide6.QtGui import QIcon
 from PySide6.QtCore import Signal,Slot
 
 from .forms.ui_mainwindow import Ui_MainWindow
-from business.utils import pathOperationType
+from business.utils import pathOperationType,envorimentVariables
 
 import json
 
@@ -21,18 +21,24 @@ class mainWindow(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.resouces = envorimentVariables.resourses_dir.value
+        self.currentSettingsFile = envorimentVariables.current_settings_json.value[0]
+        self.settingsFile = envorimentVariables.settings_json.value[0]
+
+
         self.__readCurrentSettings()
         self.connectSignalsAndSlots()
         self.ui.start_button.setStyleSheet("background-color: #00AA00")
         self.ui.close_button.setStyleSheet("background-color: #AA0000")
 
-        self.__setIcons(self.ui.add_folder,'view/forms/resources/adicionar-pasta.png')
-        self.__setIcons(self.ui.ignore_folder,'view/forms/resources/adicionar-pasta.png')
-        self.__setIcons(self.ui.remove_folder,'view/forms/resources/remover-pasta.png')
+        self.__setIcons(self.ui.add_folder,self.resouces + '/adicionar-pasta.png')
+        self.__setIcons(self.ui.ignore_folder,self.resouces + '/adicionar-pasta.png')
+        self.__setIcons(self.ui.remove_folder,self.resouces + '/remover-pasta.png')
 
-        self.__setIcons(self.ui.add_file,'view/forms/resources/adicionar-imagem.png')
-        self.__setIcons(self.ui.ignore_file,'view/forms/resources/adicionar-imagem.png')
-        self.__setIcons(self.ui.remove_file,'view/forms/resources/remover-imagem.png')
+        self.__setIcons(self.ui.add_file, self.resouces + '/adicionar-imagem.png')
+        self.__setIcons(self.ui.ignore_file,self.resouces + '/adicionar-imagem.png')
+        self.__setIcons(self.ui.remove_file,self.resouces + '/remover-imagem.png')
 
 
     def connectSignalsAndSlots(self):
@@ -101,7 +107,7 @@ class mainWindow(QMainWindow):
         
 
     def __readCurrentSettings(self):
-        with open('../settings.json','r') as file:
+        with open(self.settingsFile,'r') as file:
             settings = json.load(file)
 
         self.ui.time_edit.setText(str(settings['time']))
@@ -111,7 +117,7 @@ class mainWindow(QMainWindow):
         self.ui.ignore_checkBox.setChecked(settings['ignore_images'])
         self.ui.random_checkBox.setChecked(settings['random_display'])
 
-        with open('../currentSettings.json','w') as file:
+        with open(self.currentSettingsFile,'w') as file:
             json.dump(settings,file,indent=4)
 
     def __setIcons(self,object,resource):

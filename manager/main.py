@@ -1,3 +1,5 @@
+#!/bin/python3
+
 import sys
 from PySide6.QtWidgets import QApplication,QWidget
 from view.mainwindow import mainWindow

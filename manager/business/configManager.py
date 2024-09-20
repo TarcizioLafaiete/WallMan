@@ -1,12 +1,13 @@
-import sys
 import os
 import json
+
+from .utils import envorimentVariables
 
 class configManager:
 
     def __init__(self):
-        self.permanentFile = '../settings.json'
-        self.currentFile = '../currentSettings.json'
+        self.permanentFile = envorimentVariables.settings_json.value[0]
+        self.currentFile = envorimentVariables.current_settings_json.value[0]
 
     def addfolderInImageList(self,folder:str):
         files = []

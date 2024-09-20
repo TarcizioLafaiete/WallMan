@@ -4,7 +4,7 @@ from PySide6.QtCore import QObject,Signal,Slot
 from view.mainwindow import mainWindow
 from business.configManager import configManager
 from business.unixClient import unixClient
-from business.utils import pathOperationType
+from business.utils import pathOperationType,envorimentVariables
 
 class Controller(QObject):
 
@@ -13,6 +13,7 @@ class Controller(QObject):
         self.connectSignalsAndSlots()
 
         self.configManager = configManager()
+        self.socket = envorimentVariables.unix_socket_file.value[0]
         self.initial = True
 
     def connectSignalsAndSlots(self):
@@ -28,7 +29,7 @@ class Controller(QObject):
         print("sending configurations to worker")
         self.configManager.fillCurrentFile(configs)
         command = {"flag": 1,"initial": self.initial,"image_change":False}
-        unixClient('/tmp/socket_file',command)
+        unixClient(self.socket,command)
         
         self.initial = False
     
@@ -36,7 +37,7 @@ class Controller(QObject):
     def close_Worker(self):
         print("Close worker")
         command = {"flag": 0}
-        unixClient('/tmp/socket_file',command)
+        unixClient(self.socket,command)
 
     @Slot()
     def saveConfigs(self):
@@ -50,7 +51,7 @@ class Controller(QObject):
 
         self.initial = False
         command = {"flag":1, "initial": self.initial, "image_change": True}
-        unixClient("/tmp/socket_file",command)
+        unixClient(self.socket,command)
 
     @Slot(pathOperationType,list)
     def receive_files(self,operation:pathOperationType,files: list):
@@ -59,4 +60,4 @@ class Controller(QObject):
 
         self.initial = False
         command = {"flag":1, "initial": self.initial, "image_change": True}
-        unixClient("/tmp/socket_file",command)
+        unixClient(self.socket,command)
