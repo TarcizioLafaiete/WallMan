@@ -40,9 +40,10 @@ class Controller(QObject):
         command = {"running":0,'mode':0}
         unixClient(self.socket,command)
 
-    @Slot()
-    def saveConfigs(self):
+    @Slot(dict)
+    def saveConfigs(self,configs:dict):
         print("Save configurations in settings.json")
+        self.configManager.fillCurrentFile(configs)
         self.configManager.saveSettingsFile()
 
     @Slot(pathOperationType,str)
