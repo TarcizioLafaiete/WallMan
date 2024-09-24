@@ -13,7 +13,7 @@ from utils.unixServer import unixServer
 unixFile = os.getenv("UNIX_SOCKET_FILE")
 currentSettingsFile = os.getenv("CURRENT_SETTINGS_JSON")
 settingsFile = os.getenv("SETTINGS_JSON")
-commandDict = {'flag':0}
+commandDict = {'running':False,'mode':0}
 
 mutex = threading.Lock()
 
@@ -26,6 +26,7 @@ def socket_routine():
         mutex.acquire()
         global commandDict
         commandDict = server.recvMessage()
+        print(commandDict)
         mutex.release()
 
 def generate_imagesList(settings:dict) -> list[str]:
@@ -84,25 +85,47 @@ def wallpaper_routine():
         commandFlags = commandDict
         mutex.release()
 
-        flag = commandFlags['flag']
-        if flag == 1:
-            if not commandFlags['initial']:
+        # flag = commandFlags['flag']
+        # if flag == 1:
+        #     if not commandFlags['initial']:
 
-                with open(currentSettingsFile,'r') as file:
-                    settings = json.load(file)
+        #         with open(currentSettingsFile,'r') as file:
+        #             settings = json.load(file)
 
-                if commandFlags['image_change']:
-                    images = generate_imagesList(settings)
-                    print(images)
-                    listSize = len(images)
-                else:
-                    configs = getOtherConfigs(settings)
+        #         if commandFlags['image_change']:
+        #             images = generate_imagesList(settings)
+        #             print(images)
+        #             listSize = len(images)
+        #         else:
+        #             configs = getOtherConfigs(settings)
 
-            plotWallpaper(images[indexList],configs)
-            indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize
-        elif flag == 2:
+        #     plotWallpaper(images[indexList],configs)
+        #     indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize
+        # elif flag == 2:
+        #     plotWallpaper(commandFlags['image'],configs)
+
+        if commandFlags['running'] :
+            if commandFlags['mode'] == 0:
+                plotWallpaper(images[indexList],configs)
+                indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize 
+        
+        if commandFlags['mode'] == 1:
+
+            with open(currentSettingsFile,'r') as file:
+                settings = json.load(file)
+
+            if commandFlags['image_change']:
+                images = generate_imagesList(settings)
+                print("change Image")
+                listSize = len(images)
+            else:
+                configs = getOtherConfigs(settings)
+                print("Change Configs")
+
+            commandFlags['mode'] = 0
+
+        elif commandFlags['mode'] == 2:
             plotWallpaper(commandFlags['image'],configs)
-            
 
 def main():
     socketTherad = threading.Thread(target=socket_routine)
