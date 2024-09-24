@@ -1,11 +1,20 @@
 #!bin/bash
 
 debug=1
+kill_worker=1
 
 if [ $debug -eq 1 ]; then
     USER_HOME=$(pwd)
 else 
     USER_HOME="$HOME/.WallMan"
+fi
+
+if [ $kill_worker -eq 1 ]; then
+    pid=$(pgrep -f "worker.py")
+    
+    if [ -n "$pid" ]; then
+        kill -9 $pid
+    fi
 fi
 
 export WALLMAN_ROOT="$USER_HOME"
