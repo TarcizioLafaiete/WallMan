@@ -12,7 +12,7 @@ class configManager:
     def addfolderInImageList(self,folder:str):
         files = []
         for root,dirs,file_walks in os.walk(folder):
-            files += [os.path.join(root,file) for file in file_walks if file.endswith('.jpg') | file.endswith('.png')]
+            files += [os.path.join(root,file) for file in file_walks if file.endswith('.jpg') | file.endswith('.png') | file.endswith('.jpeg')]
 
         self.addImagesInImageList(files)
 
