@@ -16,7 +16,6 @@ class Controller(QObject):
 
         self.configManager = configManager()
         self.socket = envorimentVariables.unix_socket_file.value[0]
-        self.running = False
 
     def connectSignalsAndSlots(self):
         self.mainInterface.startWorker.connect(self.sendConfigs_to_Worker)
@@ -30,8 +29,7 @@ class Controller(QObject):
     def sendConfigs_to_Worker(self,configs:dict):
         print("sending configurations to worker")
         self.configManager.fillCurrentFile(configs)
-        self.running = True
-        command = {"running": self.running, "mode": 1,"image_change":False}
+        command = {"running": 1, "mode": 1,"image_change":False}
         unixClient(self.socket,command)
 
 
@@ -39,8 +37,7 @@ class Controller(QObject):
     def close_Worker(self):
         print("Close worker")
 
-        self.running = False
-        command = {"running":self.running,'mode':0}
+        command = {"running":0,'mode':0}
         unixClient(self.socket,command)
 
     @Slot()
@@ -53,7 +50,7 @@ class Controller(QObject):
         print(f"{operation.value} : {folder}")
         self.configManager.addfolderInImageList(folder)
 
-        command = {"running": self.running , "mode": 1, "image_change": True}
+        command = {"running": 2 , "mode": 1, "image_change": True}
         unixClient(self.socket,command)
 
 
@@ -62,6 +59,6 @@ class Controller(QObject):
         print(f"{operation.value} : {files}")
         self.configManager.addImagesInImageList(files)
 
-        command = {"running":self.running, "mode": 1, "image_change": True}
+        command = {"running":2, "mode": 1, "image_change": True}
         unixClient(self.socket,command)
 

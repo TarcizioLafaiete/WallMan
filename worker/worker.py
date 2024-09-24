@@ -13,7 +13,7 @@ from utils.unixServer import unixServer
 unixFile = os.getenv("UNIX_SOCKET_FILE")
 currentSettingsFile = os.getenv("CURRENT_SETTINGS_JSON")
 settingsFile = os.getenv("SETTINGS_JSON")
-commandDict = {'running':False,'mode':0}
+commandDict = {'running':0,'mode':0}
 
 mutex = threading.Lock()
 
@@ -78,14 +78,18 @@ def wallpaper_routine():
     indexList = 0
     listSize = len(images)
 
+    running = 0
+
     while True:
         mutex.acquire()
         global commandDict
         commandFlags = commandDict
         mutex.release()
 
+        if commandFlags['running'] != 2:
+            running = commandFlags['running']
 
-        if commandFlags['running'] :
+        if running:
             if commandFlags['mode'] == 0:
                 plotWallpaper(images[indexList],configs)
                 indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize 
