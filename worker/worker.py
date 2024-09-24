@@ -26,7 +26,6 @@ def socket_routine():
         mutex.acquire()
         global commandDict
         commandDict = server.recvMessage()
-        print(commandDict)
         mutex.release()
 
 def generate_imagesList(settings:dict) -> list[str]:
@@ -85,24 +84,6 @@ def wallpaper_routine():
         commandFlags = commandDict
         mutex.release()
 
-        # flag = commandFlags['flag']
-        # if flag == 1:
-        #     if not commandFlags['initial']:
-
-        #         with open(currentSettingsFile,'r') as file:
-        #             settings = json.load(file)
-
-        #         if commandFlags['image_change']:
-        #             images = generate_imagesList(settings)
-        #             print(images)
-        #             listSize = len(images)
-        #         else:
-        #             configs = getOtherConfigs(settings)
-
-        #     plotWallpaper(images[indexList],configs)
-        #     indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize
-        # elif flag == 2:
-        #     plotWallpaper(commandFlags['image'],configs)
 
         if commandFlags['running'] :
             if commandFlags['mode'] == 0:
