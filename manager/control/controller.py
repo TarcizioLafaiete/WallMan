@@ -34,7 +34,6 @@ class Controller(QObject):
         command = {"running": self.running, "mode": 1,"image_change":False}
         unixClient(self.socket,command)
 
-        # self.__backToNormalMode()
 
     @Slot()
     def close_Worker(self):
@@ -57,7 +56,6 @@ class Controller(QObject):
         command = {"running": self.running , "mode": 1, "image_change": True}
         unixClient(self.socket,command)
 
-        # self.__backToNormalMode()
 
     @Slot(pathOperationType,list)
     def receive_files(self,operation:pathOperationType,files: list):
@@ -67,10 +65,3 @@ class Controller(QObject):
         command = {"running":self.running, "mode": 1, "image_change": True}
         unixClient(self.socket,command)
 
-        # self.__backToNormalMode()
-
-
-    def __backToNormalMode(self):
-        time.sleep(0.2)
-        command = {"running": self.running, "mode":0}
-        unixClient(self.socket,command)
