@@ -12,7 +12,7 @@ class mainWindow(QMainWindow):
 
     startWorker = Signal(dict)
     closeWorker = Signal()
-    saveConfig = Signal()
+    saveConfig = Signal(dict)
     pathOperation = Signal(pathOperationType,str)
     filesOperation = Signal(pathOperationType,list)
     
@@ -56,14 +56,7 @@ class mainWindow(QMainWindow):
 
     @Slot()
     def start_button_clicked(self):
-        configDict = {
-            'time': int(self.ui.time_edit.toPlainText()),
-            'time_unit': self.ui.time_unit_box.currentText(),
-            'ui_system': self.ui.ui_system_box.currentText(),
-            'ignore_images': self.ui.ignore_checkBox.isChecked(),
-            'random_display': self.ui.random_checkBox.isChecked()
-        }
-        self.startWorker.emit(configDict)
+        self.startWorker.emit(self.__getConfigs())
 
     @Slot(str)
     def close_button_clicked(self):
@@ -71,7 +64,7 @@ class mainWindow(QMainWindow):
 
     @Slot()
     def saveConfig_button_clicked(self):
-        self.saveConfig.emit()
+        self.saveConfig.emit(self.__getConfigs())
 
     @Slot()
     def get_add_folder(self):
@@ -124,3 +117,13 @@ class mainWindow(QMainWindow):
         icon = QIcon(resource)
         object.setIcon(icon)
         object.setText('')
+
+    def __getConfigs(self):
+        configDict = {
+            'time': int(self.ui.time_edit.toPlainText()),
+            'time_unit': self.ui.time_unit_box.currentText(),
+            'ui_system': self.ui.ui_system_box.currentText(),
+            'ignore_images': self.ui.ignore_checkBox.isChecked(),
+            'random_display': self.ui.random_checkBox.isChecked()
+        }
+        return configDict
