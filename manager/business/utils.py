@@ -3,7 +3,7 @@ import os
 
 class pathOperationType(Enum):
     ADD = 0,
-    IGNORE = 1,
+    SHOW = 1,
     REMOVE = 2
 
 class envorimentVariables(Enum):
