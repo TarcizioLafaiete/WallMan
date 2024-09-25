@@ -49,6 +49,9 @@ class Controller(QObject):
     @Slot(pathOperationType,str)
     def receive_folder(self,operation:pathOperationType, folder: str):
         print(f"{operation.value} : {folder}")
+        if not folder:
+            return
+        
         self.configManager.addfolderInImageList(folder)
 
         command = {"running": 2 , "mode": 1, "image_change": True}
@@ -58,6 +61,9 @@ class Controller(QObject):
     @Slot(pathOperationType,list)
     def receive_files(self,operation:pathOperationType,files: list):
         print(f"{operation.value} : {files}")
+        if not files:
+            return
+            
         self.configManager.addImagesInImageList(files)
 
         command = {"running":2, "mode": 1, "image_change": True}
