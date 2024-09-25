@@ -30,12 +30,6 @@ def socket_routine():
 
 def generate_imagesList(settings:dict) -> list[str]:
     imagesList = settings['images_list']
-    ignoreList = []
-    
-    if(settings['ignore_images']):
-        ignoreList = settings['ignore_list']
-
-    imagesList = list(set(imagesList) - set(ignoreList))
     return imagesList
 
 def getOtherConfigs(settings:dict) -> dict:
