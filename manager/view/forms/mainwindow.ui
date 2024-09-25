@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="palette">
    <palette>
     <active>
@@ -492,6 +498,12 @@
       <height>141</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="title">
      <string>Configurations</string>
     </property>
@@ -598,13 +610,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QCheckBox" name="ignore_checkBox">
-        <property name="text">
-         <string>Use ignore list images setting</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </widget>
@@ -617,10 +622,16 @@
       <height>261</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="title">
      <string>Wallpapers Manipulation</string>
     </property>
-    <widget class="QPushButton" name="add_file">
+    <widget class="QPushButton" name="add_folder">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -646,7 +657,7 @@
       <string>Add new Images to carousel</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="add_folder">
+    <widget class="QPushButton" name="add_file">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -669,26 +680,13 @@
       </rect>
      </property>
      <property name="text">
-      <string>Add images in ignore list</string>
+      <string>Remove images to carousel</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="ignore_folder">
+    <widget class="QPushButton" name="remove_file">
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>110</y>
-       <width>40</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="ignore_file">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
        <y>110</y>
        <width>40</width>
        <height>40</height>
@@ -708,10 +706,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Remove images of carousel</string>
+      <string>Show Image on Display</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="remove_folder">
+    <widget class="QPushButton" name="show_image">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -720,18 +718,11 @@
        <height>40</height>
       </rect>
      </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="remove_file">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>190</y>
-       <width>40</width>
-       <height>40</height>
-      </rect>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="text">
       <string>PushButton</string>
