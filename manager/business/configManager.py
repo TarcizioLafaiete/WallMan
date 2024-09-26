@@ -27,6 +27,17 @@ class configManager:
         with open(self.currentFile,'w') as file:
             json.dump(settings,file,indent=4)
 
+    def removeImageInImageList(self,image:str):
+        settings = {}
+        with open(self.currentFile,'r') as file:
+            settings = json.load(file)
+        
+        new_list = [path for path in settings['images_list'] if path != image]
+        settings['images_list'] = new_list
+
+        with open(self.currentFile,'w') as file:
+            json.dump(settings,file,indent=4)
+
     def fillCurrentFile(self,newConfigs:dict):
         currentConfigs = {}
         with open(self.currentFile,'r') as file:
