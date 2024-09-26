@@ -84,7 +84,7 @@ class mainWindow(QMainWindow):
 
     @Slot()
     def open_imageList_widget(self):
-        if self.imageList_widget is None:
+        if self.imageList_widget is None or not self.imageList_widget.isVisible():
             self.imageList_widget = imageList_Widget()
             self.imageList_widget.remove_image_request.connect(self.get_remove_image)
             self.imageList_widget.show()
