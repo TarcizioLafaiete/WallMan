@@ -78,10 +78,15 @@ class mainWindow(QMainWindow):
     def get_show_image(self):
         self.filesOperation.emit(pathOperationType.SHOW,self.__get_unique_file())
 
+    @Slot(str)
+    def get_remove_image(self,path):
+        self.filesOperation.emit(pathOperationType.REMOVE,[path])
+
     @Slot()
     def open_imageList_widget(self):
         if self.imageList_widget is None:
             self.imageList_widget = imageList_Widget()
+            self.imageList_widget.remove_image_request.connect(self.get_remove_image)
             self.imageList_widget.show()
 
     def __get_folder(self):

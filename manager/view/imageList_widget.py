@@ -10,6 +10,8 @@ import json
 
 class imageList_Widget(QWidget):
 
+    remove_image_request = Signal(str)
+
     def __init__(self):
         super().__init__()
         self.ui = Ui_imageListWidget()
@@ -20,20 +22,22 @@ class imageList_Widget(QWidget):
         self.currentSettingsFile = envorimentVariables.current_settings_json.value[0]
 
         self.imageList = []
+        self.currentImage = ""
+
         self.__listImages()
 
     def connectSignalsAndSlots(self):
         self.ui.imageList.itemClicked.connect(self.plot_image)
+        self.ui.RemoveButton.clicked.connect(self.remove_image)
 
     def plot_image(self,item):
-        
+
         for img in self.imageList:
             if img.find(item.text()) >= 0:
-                path = img
+                self.currentImage = img
                 break
-
         
-        image = cv2.imread(path)
+        image = cv2.imread(self.currentImage)
         miniature = cv2.resize(image,(300,200))
 
         rgb_miniature = cv2.cvtColor(miniature,cv2.COLOR_BGR2RGB)
@@ -44,6 +48,10 @@ class imageList_Widget(QWidget):
         q_pixmap = QPixmap.fromImage(q_image)
 
         self.ui.ImageLabel.setPixmap(q_pixmap)
+
+    @Slot()
+    def remove_image(self):
+        self.remove_image_request.emit(self.currentImage)
 
     def __listImages(self):
     

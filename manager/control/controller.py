@@ -25,6 +25,7 @@ class Controller(QObject):
         self.mainInterface.pathOperation.connect(self.receive_folder)
         self.mainInterface.filesOperation.connect(self.receive_files)
 
+
     @Slot(dict)
     def sendConfigs_to_Worker(self,configs:dict):
         print("sending configurations to worker")
@@ -51,7 +52,7 @@ class Controller(QObject):
         print(f"{operation.value} : {folder}")
         if not folder:
             return
-        
+
         self.configManager.addfolderInImageList(folder)
 
         command = {"running": 2 , "mode": 1, "image_change": True}
@@ -63,9 +64,12 @@ class Controller(QObject):
         print(f"{operation.value} : {files}")
         if not files:
             return
-            
-        self.configManager.addImagesInImageList(files)
+        
+        if operation == pathOperationType.ADD:
+            self.configManager.addImagesInImageList(files)
+        
+        elif operation == pathOperationType.REMOVE:
+            self.configManager.removeImageInImageList(files[0])
 
         command = {"running":2, "mode": 1, "image_change": True}
         unixClient(self.socket,command)
-
