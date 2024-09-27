@@ -13,6 +13,7 @@ from utils.unixServer import unixServer
 unixFile = os.getenv("UNIX_SOCKET_FILE")
 currentSettingsFile = os.getenv("CURRENT_SETTINGS_JSON")
 settingsFile = os.getenv("SETTINGS_JSON")
+wallman_root = os.getenv("WALLMAN_ROOT")
 commandDict = {'running':0,'mode':0}
 
 mutex = threading.Lock()
@@ -56,7 +57,7 @@ def plotWallpaper(image:str,configs:dict):
     if configs['ui'] == "Gnome":
         command = f"gsettings set org.gnome.desktop.background picture-uri file://{image}"
     elif configs['ui'] == "Kde":
-        command = f"utils/kde_change_wallpaper_command.sh {image}"
+        command = f"bash {wallman_root}/worker/utils/kde_change_wallpaper_command.sh {image}"
     os.system(command)
     time.sleep(configs['time'] * convertTimeUnit(configs['time_unit']))
 
@@ -88,6 +89,7 @@ def wallpaper_routine():
                 if listSize > 0:
                     plotWallpaper(images[indexList],configs)
                     indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize 
+
         
         if commandFlags['mode'] == 1:
 
