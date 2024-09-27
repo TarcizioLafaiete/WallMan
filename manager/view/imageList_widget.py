@@ -11,6 +11,7 @@ import json
 class imageList_Widget(QWidget):
 
     remove_image_request = Signal(str)
+    remove_all_images_request = Signal()
 
     def __init__(self):
         super().__init__()
@@ -29,6 +30,7 @@ class imageList_Widget(QWidget):
     def connectSignalsAndSlots(self):
         self.ui.imageList.itemClicked.connect(self.plot_image)
         self.ui.RemoveButton.clicked.connect(self.remove_image)
+        self.ui.removeAllButton.clicked.connect(self.remove_all_images)
 
     def plot_image(self,item):
 
@@ -52,6 +54,12 @@ class imageList_Widget(QWidget):
     @Slot()
     def remove_image(self):
         self.remove_image_request.emit(self.currentImage)
+        self.ui.imageList.clear()
+        self.__listImages()
+
+    @Slot()
+    def remove_all_images(self):
+        self.remove_all_images_request.emit()    
 
     def __listImages(self):
     

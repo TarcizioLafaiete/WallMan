@@ -83,10 +83,21 @@ class mainWindow(QMainWindow):
         self.filesOperation.emit(pathOperationType.REMOVE,[path])
 
     @Slot()
+    def get_remove_all_images(self):
+        settings = {}
+        with open(self.currentSettingsFile, 'r') as file:
+            settings = json.load(file)
+
+        self.closeWorker.emit()
+
+        self.filesOperation.emit(pathOperationType.REMOVE,settings['images_list']) 
+
+    @Slot()
     def open_imageList_widget(self):
         if self.imageList_widget is None or not self.imageList_widget.isVisible():
             self.imageList_widget = imageList_Widget()
             self.imageList_widget.remove_image_request.connect(self.get_remove_image)
+            self.imageList_widget.remove_all_images_request.connect(self.get_remove_all_images)
             self.imageList_widget.show()
 
     def __get_folder(self):
