@@ -32,9 +32,9 @@ class Ui_imageListWidget(object):
         self.RemoveButton = QPushButton(Form)
         self.RemoveButton.setObjectName(u"RemoveButton")
         self.RemoveButton.setGeometry(QRect(390, 360, 89, 25))
-        self.CloseButtton = QPushButton(Form)
-        self.CloseButtton.setObjectName(u"CloseButtton")
-        self.CloseButtton.setGeometry(QRect(490, 360, 89, 25))
+        self.removeAllButton = QPushButton(Form)
+        self.removeAllButton.setObjectName(u"removeAllButton")
+        self.removeAllButton.setGeometry(QRect(490, 360, 89, 25))
 
         self.retranslateUi(Form)
 
@@ -45,6 +45,6 @@ class Ui_imageListWidget(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.ImageLabel.setText("")
         self.RemoveButton.setText(QCoreApplication.translate("Form", u"Remove", None))
-        self.CloseButtton.setText(QCoreApplication.translate("Form", u"Close", None))
+        self.removeAllButton.setText(QCoreApplication.translate("Form", u"Remove All", None))
     # retranslateUi
 

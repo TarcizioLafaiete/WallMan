@@ -49,7 +49,7 @@
     <string>Remove</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="CloseButtton">
+  <widget class="QPushButton" name="removeAllButton">
    <property name="geometry">
     <rect>
      <x>490</x>
@@ -59,7 +59,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Close</string>
+    <string>Remove All</string>
    </property>
   </widget>
  </widget>
