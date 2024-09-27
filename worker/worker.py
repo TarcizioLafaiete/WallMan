@@ -85,8 +85,9 @@ def wallpaper_routine():
 
         if running:
             if commandFlags['mode'] == 0:
-                plotWallpaper(images[indexList],configs)
-                indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize 
+                if listSize > 0:
+                    plotWallpaper(images[indexList],configs)
+                    indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize 
         
         if commandFlags['mode'] == 1:
 
@@ -95,16 +96,17 @@ def wallpaper_routine():
 
             if commandFlags['image_change']:
                 images = generate_imagesList(settings)
-                print("change Image")
+                # print("change Image")
                 listSize = len(images)
             else:
                 configs = getOtherConfigs(settings)
-                print("Change Configs")
+                # print("Change Configs")
 
             commandFlags['mode'] = 0
 
         elif commandFlags['mode'] == 2:
-            plotWallpaper(commandFlags['image'],configs)
+            if listSize > 0:
+                plotWallpaper(commandFlags['image'],configs)
 
 def main():
     socketTherad = threading.Thread(target=socket_routine)
