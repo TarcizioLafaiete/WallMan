@@ -70,6 +70,11 @@ class Controller(QObject):
         
         elif operation == pathOperationType.REMOVE:
             self.configManager.removeImageInImageList(files[0])
+        
+        elif operation == pathOperationType.SHOW:
+            command = {"running":2,"mode":2, "image":files[0]}
+            unixClient(self.socket,command)
+            return
 
         command = {"running":2, "mode": 1, "image_change": True}
         unixClient(self.socket,command)
