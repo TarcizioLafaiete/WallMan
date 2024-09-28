@@ -34,6 +34,8 @@ class mainWindow(QMainWindow):
         self.connectSignalsAndSlots()
         self.ui.start_button.setStyleSheet("background-color: #00AA00")
         self.ui.close_button.setStyleSheet("background-color: #AA0000")
+        self.ui.save_plot_Image.setStyleSheet("background-color:#0000AA")
+        self.ui.save_plot_Image.setVisible(False)
 
         self.__setIcons(self.ui.add_folder,self.resouces + '/adicionar-pasta.png')
 
@@ -76,7 +78,10 @@ class mainWindow(QMainWindow):
 
     @Slot()
     def get_show_image(self):
-        self.filesOperation.emit(pathOperationType.SHOW,[self.__get_unique_file()])
+        file = self.__get_unique_file()
+        if len(file) > 0:
+            self.ui.save_plot_Image.setVisible(True)
+            self.filesOperation.emit(pathOperationType.SHOW,[file])
 
     @Slot(str)
     def get_remove_image(self,path):

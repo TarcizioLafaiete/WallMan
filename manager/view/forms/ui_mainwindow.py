@@ -187,6 +187,9 @@ class Ui_MainWindow(object):
         self.close_button = QPushButton(self.centralwidget)
         self.close_button.setObjectName(u"close_button")
         self.close_button.setGeometry(QRect(670, 510, 101, 31))
+        self.save_plot_Image = QPushButton(self.centralwidget)
+        self.save_plot_Image.setObjectName(u"save_plot_Image")
+        self.save_plot_Image.setGeometry(QRect(340, 510, 101, 31))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -230,6 +233,7 @@ class Ui_MainWindow(object):
         self.save_button.setText(QCoreApplication.translate("MainWindow", u"Save Config", None))
         self.start_button.setText(QCoreApplication.translate("MainWindow", u"Start", None))
         self.close_button.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
+        self.save_plot_Image.setText(QCoreApplication.translate("MainWindow", u"Save Image", None))
         self.menuWallMan_Program.setTitle(QCoreApplication.translate("MainWindow", u"WallMan Program", None))
     # retranslateUi
 
