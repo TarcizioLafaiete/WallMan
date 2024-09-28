@@ -76,7 +76,7 @@ class mainWindow(QMainWindow):
 
     @Slot()
     def get_show_image(self):
-        self.filesOperation.emit(pathOperationType.SHOW,self.__get_unique_file())
+        self.filesOperation.emit(pathOperationType.SHOW,[self.__get_unique_file()])
 
     @Slot(str)
     def get_remove_image(self,path):
