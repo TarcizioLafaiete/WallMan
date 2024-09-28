@@ -18,6 +18,8 @@ class imageList_Widget(QWidget):
         self.ui = Ui_imageListWidget()
         self.ui.setupUi(self)
 
+        self.ui.removeAllButton.setStyleSheet("background-color: #AA0000");
+
         self.connectSignalsAndSlots()
 
         self.currentSettingsFile = envorimentVariables.current_settings_json.value[0]
@@ -59,6 +61,7 @@ class imageList_Widget(QWidget):
 
     @Slot()
     def remove_all_images(self):
+        self.ui.imageList.clear()
         self.remove_all_images_request.emit()    
 
     def __listImages(self):
