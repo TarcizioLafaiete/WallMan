@@ -29,12 +29,14 @@ class mainWindow(QMainWindow):
         self.currentSettingsFile = envorimentVariables.current_settings_json.value[0]
         self.settingsFile = envorimentVariables.settings_json.value[0]
 
+        self.plotedImage = ""
 
         self.__readCurrentSettings()
         self.connectSignalsAndSlots()
         self.ui.start_button.setStyleSheet("background-color: #00AA00")
         self.ui.close_button.setStyleSheet("background-color: #AA0000")
         self.ui.save_plot_Image.setStyleSheet("background-color:#0000AA")
+        self.ui.save_plot_Image.setText("Add Image")
         self.ui.save_plot_Image.setVisible(False)
 
         self.__setIcons(self.ui.add_folder,self.resouces + '/adicionar-pasta.png')
@@ -48,6 +50,7 @@ class mainWindow(QMainWindow):
         self.ui.start_button.clicked.connect(self.start_button_clicked)
         self.ui.close_button.clicked.connect(self.close_button_clicked)
         self.ui.save_button.clicked.connect(self.saveConfig_button_clicked)
+        self.ui.save_plot_Image.clicked.connect(self.save_image_ploted)
 
         self.ui.add_folder.clicked.connect(self.get_add_folder)
 
@@ -78,10 +81,10 @@ class mainWindow(QMainWindow):
 
     @Slot()
     def get_show_image(self):
-        file = self.__get_unique_file()
-        if len(file) > 0:
+        self.plotedImage = self.__get_unique_file()
+        if len(self.plotedImage) > 0:
             self.ui.save_plot_Image.setVisible(True)
-            self.filesOperation.emit(pathOperationType.SHOW,[file])
+            self.filesOperation.emit(pathOperationType.SHOW,[self.plotedImage])
 
     @Slot(str)
     def get_remove_image(self,path):
@@ -104,6 +107,11 @@ class mainWindow(QMainWindow):
             self.imageList_widget.remove_image_request.connect(self.get_remove_image)
             self.imageList_widget.remove_all_images_request.connect(self.get_remove_all_images)
             self.imageList_widget.show()
+
+    @Slot()
+    def save_image_ploted(self):
+        self.ui.save_plot_Image.setVisible(False)
+        self.filesOperation.emit(pathOperationType.ADD,[self.plotedImage])
 
     def __get_folder(self):
         folder_name = QFileDialog.getExistingDirectory()

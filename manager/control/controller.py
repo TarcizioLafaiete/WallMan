@@ -72,7 +72,7 @@ class Controller(QObject):
             self.configManager.removeImageInImageList(files)
         
         elif operation == pathOperationType.SHOW:
-            command = {"running":2,"mode":2, "image":files[0]}
+            command = {"running":0,"mode":2, "image":files[0]}
             unixClient(self.socket,command)
             return
 
