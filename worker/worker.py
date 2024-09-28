@@ -108,7 +108,8 @@ def wallpaper_routine():
 
         elif commandFlags['mode'] == 2:
             if listSize > 0:
-                plotWallpaper(commandFlags['image'],configs)
+                plot_configs = {'time':1, 'time_unit':'sec','ui':configs['ui']}
+                plotWallpaper(commandFlags['image'],plot_configs)
 
 def main():
     socketTherad = threading.Thread(target=socket_routine)
