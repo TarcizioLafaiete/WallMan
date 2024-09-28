@@ -32,7 +32,7 @@ class configManager:
         with open(self.currentFile,'r') as file:
             settings = json.load(file)
         
-        new_list = list(set(settings['image_list']) - set(images))
+        new_list = list(set(settings['images_list']) - set(images))
         settings['images_list'] = new_list
 
         with open(self.currentFile,'w') as file:

@@ -69,7 +69,7 @@ class Controller(QObject):
             self.configManager.addImagesInImageList(files)
         
         elif operation == pathOperationType.REMOVE:
-            self.configManager.removeImageInImageList(files[0])
+            self.configManager.removeImageInImageList(files)
         
         elif operation == pathOperationType.SHOW:
             command = {"running":2,"mode":2, "image":files[0]}
