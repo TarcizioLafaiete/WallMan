@@ -61,6 +61,9 @@ class mainWindow(QMainWindow):
 
     @Slot()
     def start_button_clicked(self):
+        if self.ui.save_plot_Image.isVisible():
+            self.ui.start_button.setText("Start")
+            self.ui.save_plot_Image.setVisible(False)
         self.startWorker.emit(self.__getConfigs())
 
     @Slot(str)
@@ -84,6 +87,7 @@ class mainWindow(QMainWindow):
         self.plotedImage = self.__get_unique_file()
         if len(self.plotedImage) > 0:
             self.ui.save_plot_Image.setVisible(True)
+            self.ui.start_button.setText("Restart")
             self.filesOperation.emit(pathOperationType.SHOW,[self.plotedImage])
 
     @Slot(str)
