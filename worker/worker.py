@@ -14,7 +14,10 @@ unixFile = os.getenv("UNIX_SOCKET_FILE")
 currentSettingsFile = os.getenv("CURRENT_SETTINGS_JSON")
 settingsFile = os.getenv("SETTINGS_JSON")
 wallman_root = os.getenv("WALLMAN_ROOT")
+
 commandDict = {'running':0,'mode':0}
+
+new_request = False
 
 mutex = threading.Lock()
 
@@ -27,7 +30,26 @@ def socket_routine():
         mutex.acquire()
         global commandDict
         commandDict = server.recvMessage()
+        print(commandDict)
+        global new_request
+        new_request =  True
         mutex.release()
+
+def custom_sleep(seconds):
+    global new_request
+    start_time = time.time()
+    passed_time = time.time() - start_time
+
+    while passed_time < seconds:
+        time.sleep(0.033)
+        passed_time = time.time() - start_time
+
+        if new_request:
+            mutex.acquire()
+            new_request = False
+            mutex.release()
+            return seconds - passed_time
+    return 0
 
 def generate_imagesList(settings:dict) -> list[str]:
     imagesList = settings['images_list']
@@ -59,8 +81,7 @@ def plotWallpaper(image:str,configs:dict):
     elif configs['ui'] == "Kde":
         command = f"bash {wallman_root}/worker/utils/kde_change_wallpaper_command.sh {image}"
     os.system(command)
-    time.sleep(configs['time'] * convertTimeUnit(configs['time_unit']))
-
+    return custom_sleep(configs['time'] * convertTimeUnit(configs['time_unit']))
 
 def wallpaper_routine():
     settings = {}
@@ -72,6 +93,7 @@ def wallpaper_routine():
     images = generate_imagesList(settings)
     indexList = 0
     listSize = len(images)
+    remaining_time = 0
 
     running = 0
 
@@ -87,9 +109,11 @@ def wallpaper_routine():
         if running:
             if commandFlags['mode'] == 0:
                 if listSize > 0:
-                    plotWallpaper(images[indexList],configs)
-                    indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize 
-
+                    if remaining_time == 0:
+                        remaining_time = plotWallpaper(images[indexList],configs)
+                        indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize 
+                    else:
+                        remaining_time = custom_sleep(remaining_time)
         
         if commandFlags['mode'] == 1:
 
@@ -102,6 +126,7 @@ def wallpaper_routine():
                 listSize = len(images)
             else:
                 configs = getOtherConfigs(settings)
+                remaining_time = 0
                 # print("Change Configs")
 
             commandFlags['mode'] = 0
@@ -109,6 +134,7 @@ def wallpaper_routine():
         elif commandFlags['mode'] == 2:
             if listSize > 0:
                 plot_configs = {'time':1, 'time_unit':'sec','ui':configs['ui']}
+                remaining_time = 0
                 plotWallpaper(commandFlags['image'],plot_configs)
 
 def main():
