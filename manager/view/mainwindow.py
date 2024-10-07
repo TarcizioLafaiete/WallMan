@@ -62,8 +62,8 @@ class mainWindow(QMainWindow):
     @Slot()
     def start_button_clicked(self):
         if self.ui.save_plot_Image.isVisible():
-            self.ui.start_button.setText("Start")
             self.ui.save_plot_Image.setVisible(False)
+        self.ui.start_button.setText("Start")
         self.startWorker.emit(self.__getConfigs())
 
     @Slot(str)
