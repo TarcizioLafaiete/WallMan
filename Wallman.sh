@@ -1,7 +1,7 @@
 #!bin/bash
 
 debug=1
-kill_worker=1
+kill_worker=0
 
 if [ $debug -eq 1 ]; then
     USER_HOME=$(pwd)
@@ -25,8 +25,8 @@ export RESOURCES_DIR="$USER_HOME/manager/view/forms/resources"
 
 if ! pgrep -f "worker.py" > /dev/null
 then
-    ./worker/worker.py & 
+    poetry run python ./worker/worker.py & 
 fi
 
-./manager/main.py & 
+poetry run python ./manager/main.py & 
 
