@@ -85,4 +85,21 @@ class imageList_Widget(QWidget):
         for image in imageList:
             name_list.append(image.split('/')[-1])
         
-        return name_list
+        return self.__normImageNames(name_list)
+    
+    def __normImageNames(self,names:list[str]) -> list:
+
+        supper_names = {}
+        lower_names = {}
+
+        for name in names:
+            check = False
+            if any(letter.isupper() for letter in name):
+                check = True
+                supper_names.update({name.lower() : name})
+            lower_names.update({name.lower() : check})
+
+        
+        sorted_names = sorted(list(lower_names.keys()))
+        return [supper_names[name] if lower_names[name] else name for name in sorted_names]
+            
