@@ -29,6 +29,8 @@ class mainWindow(QMainWindow):
         self.currentSettingsFile = envorimentVariables.current_settings_json.value[0]
         self.settingsFile = envorimentVariables.settings_json.value[0]
 
+        self.setWindowIcon(QIcon(self.resouces + '/wallman_icon.jpeg'))
+
         self.plotedImage = ""
 
         self.__readCurrentSettings()
