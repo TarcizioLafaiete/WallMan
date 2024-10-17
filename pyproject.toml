@@ -3,7 +3,7 @@ name = "wallman"
 version = "0.1.0"
 description = "Gerenciador de wallpapers para o Linux"
 authors = ["TarcizioLafaiete <tarcizio-augusto@hotmail.com>"]
-#readme = "README.md"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.13"

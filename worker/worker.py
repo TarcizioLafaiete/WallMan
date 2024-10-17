@@ -110,8 +110,8 @@ def wallpaper_routine():
             if commandFlags['mode'] == 0:
                 if listSize > 0:
                     if remaining_time == 0:
-                        remaining_time = plotWallpaper(images[indexList],configs)
-                        indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize 
+                        indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize
+                        remaining_time = plotWallpaper(images[indexList],configs) 
                     else:
                         remaining_time = custom_sleep(remaining_time)
         
