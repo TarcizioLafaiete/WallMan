@@ -24,6 +24,9 @@ class configManager:
         for image in images:
             settings['images_list'].append(image)
 
+        set_images = set(settings['images_list'])
+        settings['images_list'] = list(set_images)
+
         with open(self.currentFile,'w') as file:
             json.dump(settings,file,indent=4)
 
