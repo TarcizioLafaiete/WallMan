@@ -1,7 +1,7 @@
 #!/bin/bash
 
 debug=0
-kill_worker=1
+kill_worker=0
 
 if [ $debug -eq 1 ]; then
     USER_HOME=$(pwd)
@@ -10,12 +10,15 @@ else
 fi
 
 #echo "User Home: $USER_HOME" >> /tmp/wallman.log
-
-if [ $kill_worker -eq 1 ]; then
-    pid=$(pgrep -f "worker.py")
+pid=$(pgrep -f "worker.py")
+if [ -n $"pid" ]; then
     
-    if [ -n "$pid" ]; then
+    if  [ $kill_worker -eq 1 ]; then
+		echo "Matando o worker brutalmente"
         kill -9 $pid
+	else
+		echo "Apenas reiniciando o socket"
+		kill $pid
     fi
 fi
 
