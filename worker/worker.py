@@ -5,6 +5,7 @@ import os
 import threading
 import json
 import random
+import signal
 import numpy as np
 
 from utils.unixServer import unixServer
@@ -18,14 +19,28 @@ wallman_root = os.getenv("WALLMAN_ROOT")
 commandDict = {'running':0,'mode':0}
 
 new_request = False
+reset_socket = False
 
 mutex = threading.Lock()
 
+def handle_sigterm(signum,frame):
+    print("Finalizando o socket")
+    global reset_socket
+    reset_socket = True    
+
+signal.signal(signal.SIGTERM,handle_sigterm)
 
 def socket_routine():
     server = unixServer(unixFile)
-    
+
     while True:
+        global reset_socket
+        if reset_socket:
+            print("Reiniciando o unixServer")
+            server.close()
+            server = unixServer(unixFile)
+            reset_socket = False
+
         server.accept()
         mutex.acquire()
         global commandDict
@@ -140,7 +155,7 @@ def wallpaper_routine():
 def main():
     socketTherad = threading.Thread(target=socket_routine)
     wallpaperTherad = threading.Thread(target=wallpaper_routine)
-
+    
     socketTherad.start()
     wallpaperTherad.start()
     

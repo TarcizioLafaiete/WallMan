@@ -22,8 +22,11 @@ class unixServer:
             response_dict = json.loads(response.decode('utf-8'))
             return response_dict
         return None
-    
 
+    def close(self) -> None:
+        self.server.shutdown(socket.SHUT_RDWR)
+        self.server.close()
+    
 # server = unixServer('/tmp/socket_file')
 
 # while True:
