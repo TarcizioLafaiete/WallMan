@@ -24,9 +24,10 @@ fi
 
 export WALLMAN_ROOT="$USER_HOME"
 export UNIX_SOCKET_FILE="/tmp/socket_file"
-export SETTINGS_JSON="$USER_HOME/settings.json"
-export CURRENT_SETTINGS_JSON="$USER_HOME/currentSettings.json"
+export SETTINGS_JSON="$USER_HOME/configs/settings.json"
+export CURRENT_SETTINGS_JSON="$USER_HOME/configs/currentSettings.json"
 export RESOURCES_DIR="$USER_HOME/manager/view/forms/resources"
+export WORKER_STATE_FILE="$USER_HOME/configs/worker_state.json"
 
 cd $WALLMAN_ROOT
 
