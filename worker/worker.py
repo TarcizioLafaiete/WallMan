@@ -24,7 +24,6 @@ reset_socket = False
 mutex = threading.Lock()
 
 def handle_sigterm(signum,frame):
-    print("Finalizando o socket")
     global reset_socket
     reset_socket = True    
 
@@ -36,7 +35,6 @@ def socket_routine():
     while True:
         global reset_socket
         if reset_socket:
-            print("Reiniciando o unixServer")
             server.close()
             server = unixServer(unixFile)
             reset_socket = False
@@ -45,7 +43,6 @@ def socket_routine():
         mutex.acquire()
         global commandDict
         commandDict = server.recvMessage()
-        print(commandDict)
         global new_request
         new_request =  True
         mutex.release()
