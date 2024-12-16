@@ -23,7 +23,7 @@ reset_socket = False
 
 mutex = threading.Lock()
 
-def handle_sigterm(signum,frame):
+def handle_sigterm(signum):
     global reset_socket
     reset_socket = True    
 
@@ -64,7 +64,8 @@ def custom_sleep(seconds):
     return 0
 
 def generate_imagesList(settings:dict) -> list[str]:
-    imagesList = settings['images_list']
+    current_carousel = settings['current_carousel']
+    imagesList = settings[str(current_carousel)]
     return imagesList
 
 def getOtherConfigs(settings:dict) -> dict:
@@ -132,14 +133,11 @@ def wallpaper_routine():
             with open(currentSettingsFile,'r') as file:
                 settings = json.load(file)
 
-            if commandFlags['image_change']:
-                images = generate_imagesList(settings)
-                # print("change Image")
-                listSize = len(images)
-            else:
+            if commandFlags['image_change'] == False:
                 configs = getOtherConfigs(settings)
                 remaining_time = 0
-                # print("Change Configs")
+            images = generate_imagesList(settings)
+            listSize = len(images)
 
             commandFlags['mode'] = 0
 

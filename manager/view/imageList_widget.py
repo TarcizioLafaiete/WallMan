@@ -13,7 +13,7 @@ class imageList_Widget(QWidget):
     remove_image_request = Signal(str)
     remove_all_images_request = Signal()
 
-    def __init__(self):
+    def __init__(self,carouselName:str):
         super().__init__()
         self.ui = Ui_imageListWidget()
         self.ui.setupUi(self)
@@ -24,6 +24,7 @@ class imageList_Widget(QWidget):
 
         self.currentSettingsFile = envorimentVariables.current_settings_json.value[0]
 
+        self.carouselName = carouselName
         self.imageList = []
         self.currentImage = ""
 
@@ -68,7 +69,7 @@ class imageList_Widget(QWidget):
     
         with open(self.currentSettingsFile,'r') as file:
             settings = json.load(file)
-            self.imageList = settings['images_list']
+            self.imageList = settings[self.carouselName]
 
         self.ui.imageList.setFixedWidth(235)
 

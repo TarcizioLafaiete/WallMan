@@ -14,6 +14,7 @@ class Controller(QObject):
         self.mainInterface = window
         self.connectSignalsAndSlots()
 
+        self.carouselName = ""
         self.configManager = configManager()
         self.socket = envorimentVariables.unix_socket_file.value[0]
 
@@ -24,6 +25,7 @@ class Controller(QObject):
 
         self.mainInterface.pathOperation.connect(self.receive_folder)
         self.mainInterface.filesOperation.connect(self.receive_files)
+        self.mainInterface.editCarouselName.connect(self.setCurrentEditableCarousel)
 
 
     @Slot(dict)
@@ -53,7 +55,7 @@ class Controller(QObject):
         if not folder:
             return
 
-        self.configManager.addfolderInImageList(folder)
+        self.configManager.addfolderInImageList(folder,self.carouselName)
 
         command = {"running": 2 , "mode": 1, "image_change": True}
         unixClient(self.socket,command)
@@ -66,10 +68,10 @@ class Controller(QObject):
             return
         
         if operation == pathOperationType.ADD:
-            self.configManager.addImagesInImageList(files)
+            self.configManager.addImagesInImageList(files,self.carouselName)
         
         elif operation == pathOperationType.REMOVE:
-            self.configManager.removeImageInImageList(files)
+            self.configManager.removeImageInImageList(files,self.carouselName)
         
         elif operation == pathOperationType.SHOW:
             command = {"running":0,"mode":2, "image":files[0]}
@@ -78,3 +80,8 @@ class Controller(QObject):
 
         command = {"running":2, "mode": 1, "image_change": True}
         unixClient(self.socket,command)
+
+    @Slot(str)
+    def setCurrentEditableCarousel(self,name: str):
+        self.carouselName = name
+        print(self.carouselName)

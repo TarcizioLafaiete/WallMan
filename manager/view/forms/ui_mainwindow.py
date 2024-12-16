@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.0
+## Created by: Qt User Interface Compiler version 6.8.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -66,7 +66,6 @@ class Ui_MainWindow(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Active, QPalette.PlaceholderText, brush7)
 #endif
-        palette.setBrush(QPalette.Active, QPalette.Accent, brush2)
         palette.setBrush(QPalette.Inactive, QPalette.WindowText, brush)
         palette.setBrush(QPalette.Inactive, QPalette.Button, brush1)
         palette.setBrush(QPalette.Inactive, QPalette.Light, brush2)
@@ -85,7 +84,6 @@ class Ui_MainWindow(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush7)
 #endif
-        palette.setBrush(QPalette.Inactive, QPalette.Accent, brush2)
         palette.setBrush(QPalette.Disabled, QPalette.WindowText, brush4)
         palette.setBrush(QPalette.Disabled, QPalette.Button, brush1)
         palette.setBrush(QPalette.Disabled, QPalette.Light, brush2)
@@ -106,7 +104,6 @@ class Ui_MainWindow(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush8)
 #endif
-        palette.setBrush(QPalette.Disabled, QPalette.Accent, brush2)
         MainWindow.setPalette(palette)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -147,9 +144,14 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.random_checkBox)
 
+        self.carousel_select = QComboBox(self.horizontalLayoutWidget)
+        self.carousel_select.setObjectName(u"carousel_select")
+
+        self.horizontalLayout.addWidget(self.carousel_select)
+
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setGeometry(QRect(30, 190, 331, 261))
+        self.groupBox_2.setGeometry(QRect(30, 180, 331, 321))
         sizePolicy.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
         self.groupBox_2.setSizePolicy(sizePolicy)
         self.add_folder = QPushButton(self.groupBox_2)
@@ -178,6 +180,19 @@ class Ui_MainWindow(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.show_image.sizePolicy().hasHeightForWidth())
         self.show_image.setSizePolicy(sizePolicy1)
+        self.label_4 = QLabel(self.groupBox_2)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(10, 290, 191, 21))
+        self.add_carousel = QPushButton(self.groupBox_2)
+        self.add_carousel.setObjectName(u"add_carousel")
+        self.add_carousel.setGeometry(QRect(210, 270, 40, 40))
+        sizePolicy1.setHeightForWidth(self.add_carousel.sizePolicy().hasHeightForWidth())
+        self.add_carousel.setSizePolicy(sizePolicy1)
+        self.remove_carousel = QPushButton(self.groupBox_2)
+        self.remove_carousel.setObjectName(u"remove_carousel")
+        self.remove_carousel.setGeometry(QRect(280, 270, 40, 40))
+        sizePolicy1.setHeightForWidth(self.remove_carousel.sizePolicy().hasHeightForWidth())
+        self.remove_carousel.setSizePolicy(sizePolicy1)
         self.save_button = QPushButton(self.centralwidget)
         self.save_button.setObjectName(u"save_button")
         self.save_button.setGeometry(QRect(450, 510, 101, 31))
@@ -193,7 +208,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 800, 22))
+        self.menubar.setGeometry(QRect(0, 0, 800, 24))
         self.menuWallMan_Program = QMenu(self.menubar)
         self.menuWallMan_Program.setObjectName(u"menuWallMan_Program")
         MainWindow.setMenuBar(self.menubar)
@@ -230,6 +245,9 @@ class Ui_MainWindow(object):
         self.remove_file.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Show Image on Display", None))
         self.show_image.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Create a new carousel", None))
+        self.add_carousel.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.remove_carousel.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.save_button.setText(QCoreApplication.translate("MainWindow", u"Save Config", None))
         self.start_button.setText(QCoreApplication.translate("MainWindow", u"Start", None))
         self.close_button.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
