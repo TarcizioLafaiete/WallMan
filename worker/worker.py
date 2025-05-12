@@ -25,7 +25,7 @@ mutex = threading.Lock()
 
 def handle_sigterm(signum):
     global reset_socket
-    reset_socket = True    
+    reset_socket = True
 
 signal.signal(signal.SIGTERM,handle_sigterm)
 
@@ -99,8 +99,13 @@ def plotWallpaper(image:str,configs:dict):
 def wallpaper_routine():
     settings = {}
 
-    with open(settingsFile,'r') as file:
-        settings = json.load(file)
+    done = False
+
+    while not done:
+        if os.path.exists(currentSettingsFile):
+            with open(currentSettingsFile,'r') as file:
+                settings = json.load(file)
+                done = True
 
     configs = getOtherConfigs(settings)
     images = generate_imagesList(settings)
@@ -124,10 +129,10 @@ def wallpaper_routine():
                 if listSize > 0:
                     if remaining_time == 0:
                         indexList = ((indexList + 1) + (random.randint(0,listSize) * configs['random'])) % listSize
-                        remaining_time = plotWallpaper(images[indexList],configs) 
+                        remaining_time = plotWallpaper(images[indexList],configs)
                     else:
                         remaining_time = custom_sleep(remaining_time)
-        
+
         if commandFlags['mode'] == 1:
 
             with open(currentSettingsFile,'r') as file:
@@ -150,9 +155,9 @@ def wallpaper_routine():
 def main():
     socketTherad = threading.Thread(target=socket_routine)
     wallpaperTherad = threading.Thread(target=wallpaper_routine)
-    
+
     socketTherad.start()
     wallpaperTherad.start()
-    
+
 if __name__ == "__main__":
     main()

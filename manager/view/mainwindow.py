@@ -18,7 +18,7 @@ class mainWindow(QMainWindow):
     editCarouselName = Signal(str)
     pathOperation = Signal(pathOperationType,str)
     filesOperation = Signal(pathOperationType,list)
-    
+
 
     def __init__(self):
         super().__init__()
@@ -113,7 +113,7 @@ class mainWindow(QMainWindow):
         self.closeWorker.emit()
 
         self.editCarouselName.emit(str(self.ui.carousel_select.currentText()))
-        self.filesOperation.emit(pathOperationType.REMOVE,settings[settings['current_carousel']]) 
+        self.filesOperation.emit(pathOperationType.REMOVE,settings[settings['current_carousel']])
 
     @Slot()
     def open_imageList_widget(self):
@@ -131,28 +131,28 @@ class mainWindow(QMainWindow):
     def __get_folder(self):
         folder_name = QFileDialog.getExistingDirectory()
         return folder_name
-    
+
     def __get_files(self):
         files_names, _ = QFileDialog.getOpenFileNames()
         return files_names
-    
+
     def __get_unique_file(self):
         file,_ = QFileDialog.getOpenFileName()
         return file
-    
+
     def __digit_newCarousel(self):
         text, ok = QInputDialog.getText(self,"Wallman","Carousel name")
         if ok:
             settings = []
             with open(self.currentSettingsFile,'r') as file:
                 settings = json.load(file)
-            
+
             settings['carousel_list'].append(text)
             settings[str(text)] = []
 
             with open(self.currentSettingsFile,'w') as file:
                 json.dump(settings,file,indent=4)
-            
+
             self.ui.carousel_select.addItem(text)
             self.ui.carousel_select.setCurrentText(text)
 
@@ -165,7 +165,7 @@ class mainWindow(QMainWindow):
 
     @Slot(str)
     def get_remove_carousel(self,carousel):
-        
+
         settings = {}
         with open(self.currentSettingsFile,'r') as file:
             settings = json.load(file)
@@ -177,18 +177,21 @@ class mainWindow(QMainWindow):
 
         with open(self.currentSettingsFile,'w') as file:
             json.dump(settings,file,indent=4)
-    
+
     def __adjustJsonVersion(self):
         with open(self.settingsFile, 'r') as file:
             settings = json.load(file)
-        
+
         if settings['version'] == 1.0:
             settings['version'] = 2.0
             settings['current_carousel'] = 'standard carousel'
             settings['carousel_list'] = ['standard carousel']
             settings['standard carousel'] = settings['images_list']
             del settings['images_list']
-        
+
+        with open(self.settingsFile,'w') as file:
+            json.dump(settings,file,indent=4)
+
         with open(self.currentSettingsFile,'w') as file:
             json.dump(settings,file,indent=4)
 
