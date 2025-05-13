@@ -1,7 +1,7 @@
 # Wallman
 
 This is a software developed to management of multiples wallpapers on linux distributions.
- - Current version: 0.1.0
+ - Current version: 0.2.0
  - Support: Gnome and KDE
 
 ## Technical infos
