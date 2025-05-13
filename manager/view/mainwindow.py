@@ -50,6 +50,8 @@ class mainWindow(QMainWindow):
         self.__setIcons(self.ui.add_file, self.resouces + '/adicionar-imagem.png')
         self.__setIcons(self.ui.remove_file,self.resouces + '/remover-imagem.png')
         self.__setIcons(self.ui.show_image,self.resouces + '/adicionar-imagem.png')
+        self.__setIcons(self.ui.add_carousel,self.resouces + '/add.png')
+        self.__setIcons(self.ui.remove_carousel,self.resouces + '/minus.png')
 
 
     def connectSignalsAndSlots(self):
@@ -170,7 +172,10 @@ class mainWindow(QMainWindow):
         with open(self.currentSettingsFile,'r') as file:
             settings = json.load(file)
 
-        new_list = list(set(settings['carousel_list']) - set(carousel))
+        print(f"Nome do Carrousel: {carousel}")
+
+        new_list = list(set(settings['carousel_list']) - set([carousel]))
+        print(new_list)
         settings['carousel_list'] = new_list
 
         settings.pop(carousel,None)

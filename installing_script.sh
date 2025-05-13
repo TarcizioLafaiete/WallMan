@@ -13,7 +13,7 @@ cp -r * $USER_HOME
 if ! command -v poetry &> /dev/null
 then
     echo "Poetry não encontrado, instalando poetry"
-    pip3 install poetry
+    pip3 install poetry --break-system-packages
 fi
 
 cd $USER_HOME
