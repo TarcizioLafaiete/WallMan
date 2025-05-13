@@ -183,6 +183,12 @@ class mainWindow(QMainWindow):
         with open(self.currentSettingsFile,'w') as file:
             json.dump(settings,file,indent=4)
 
+        self.ui.carousel_select.clear()
+
+        for carousel in settings['carousel_list']:
+            self.ui.carousel_select.addItem(carousel)   
+        self.ui.carousel_select.setCurrentIndex(0)
+
     def __adjustJsonVersion(self):
         with open(self.settingsFile, 'r') as file:
             settings = json.load(file)
