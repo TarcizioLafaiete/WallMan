@@ -1,18 +1,18 @@
 #!/bin/bash
 
 debug=0
-kill_worker=0
+kill_worker=1
 
 if [ $debug -eq 1 ]; then
     USER_HOME=$(pwd)
-else 
+else
     USER_HOME="$HOME/.WallMan"
 fi
 
 #echo "User Home: $USER_HOME" >> /tmp/wallman.log
 pid=$(pgrep -f "worker.py")
 if [ -n $"pid" ]; then
-    
+
     if  [ $kill_worker -eq 1 ]; then
 		echo "Matando o worker brutalmente"
         kill -9 $pid
@@ -39,9 +39,9 @@ cd $WALLMAN_ROOT
 if ! pgrep -f "worker.py" > /dev/null
 then
     echo "Subindo novo worker"
-    poetry run python ./worker/worker.py & 
+    poetry run python ./worker/worker.py &
 fi
 
-poetry run python ./manager/main.py 
+poetry run python ./manager/main.py
 
 #echo "Wallman launched" >> /tmp/wallman.log
