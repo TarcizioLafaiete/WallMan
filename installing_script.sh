@@ -10,10 +10,10 @@ if [ -d "$USER_HOME" ]; then
 fi
 mkdir $USER_HOME
 
-mv /tmp/configs $USER_HOME
-
 
 cp -r * $USER_HOME
+cp -r /tmp/configs $USER_HOME
+rm -rf /tmp/configs
 
 if ! command -v poetry &> /dev/null
 then
